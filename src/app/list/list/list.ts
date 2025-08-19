@@ -1,18 +1,25 @@
 import { Component, inject } from '@angular/core';
 import { PokeService } from '../../core/services/poke.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'poke-list',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule],
   template: `
     <h1 class="title">My Pokémon List</h1>
     <div class="poke-container">
-      @if (pokeListResource.isLoading()) {
-        <p>Loading...</p>
-      } @else if (pokeListResource.error()) {
-        <p>Error loading Pokémon</p>
+      @if (pokeList$ | async; as pokeList) {
+        <div class="poke-cards">
+          @for (poke of pokeList.results; track poke.name) {
+            <div class="poke-card">
+              <h3>{{ poke.name }}</h3>
+              <p>{{ poke.url }}</p>
+            </div>
+          }
+        </div>
       } @else {
-        <div class="poke-container"></div>
+        <p>Loading...</p>
       }
     </div>
   `,
@@ -20,5 +27,5 @@ import { PokeService } from '../../core/services/poke.service';
 })
 export class List {
   readonly #pokeService = inject(PokeService);
-  protected readonly pokeListResource = this.#pokeService.getPokeList();
+  protected readonly pokeList$ = this.#pokeService.getPokeList();
 }
