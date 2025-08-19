@@ -14,7 +14,6 @@ import { PokeResult } from '../../core/models/poke-result.model';
       [alt]="pokeResult()?.name || 'Pokémon'"
     />
     <p>{{ pokeResult()?.name || 'Sin nombre' }}</p>
-    <small>{{ pokeResult()?.url || 'Sin URL' }}</small>
   </div>
   `,
   styleUrl: './card.css'

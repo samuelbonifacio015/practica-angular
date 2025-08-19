@@ -4,6 +4,7 @@ import { List } from './list/list/list';
 
 @Component({
   selector: 'app-root',
+  standalone: true,
   imports: [RouterOutlet, List],
   templateUrl: './app.html',
   styleUrl: './app.css'
